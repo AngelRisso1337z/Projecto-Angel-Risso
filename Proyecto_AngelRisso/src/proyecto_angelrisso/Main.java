@@ -5,17 +5,25 @@
  */
 package proyecto_angelrisso;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -72,10 +80,34 @@ public class Main extends javax.swing.JFrame {
         jmi_cambiartxt = new javax.swing.JMenuItem();
         jmi_suprimir = new javax.swing.JMenuItem();
         jmi_fuente = new javax.swing.JMenuItem();
+        jmi_copy = new javax.swing.JMenuItem();
+        jmi_paste = new javax.swing.JMenuItem();
         jd_guardado = new javax.swing.JDialog();
         bt_guardar = new javax.swing.JButton();
         bt_cargar = new javax.swing.JButton();
+        bt_pdf = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        uemeele = new javax.swing.JDialog();
+        bt_crearclases = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jp_uml = new javax.swing.JPanel();
+        jd_clases = new javax.swing.JDialog();
+        rb_pub = new javax.swing.JRadioButton();
+        rb_priv = new javax.swing.JRadioButton();
+        rb_pro = new javax.swing.JRadioButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        rb_int = new javax.swing.JRadioButton();
+        rb_float = new javax.swing.JRadioButton();
+        rb_string = new javax.swing.JRadioButton();
+        tf_nom = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        bt_attCrear = new javax.swing.JButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        pp_uml = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         bt_flujo = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -251,11 +283,9 @@ public class Main extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        jd_gen.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         jScrollPane2.setViewportView(tp_text);
 
-        jd_gen.getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 26, 591, 399));
+        jd_gen.getContentPane().add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jmi_cambiartxt.setText("Cambiar color");
         jmi_cambiartxt.addActionListener(new java.awt.event.ActionListener() {
@@ -282,6 +312,22 @@ public class Main extends javax.swing.JFrame {
         });
         pp_OP.add(jmi_fuente);
 
+        jmi_copy.setText("copiar");
+        jmi_copy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_copyActionPerformed(evt);
+            }
+        });
+        pp_OP.add(jmi_copy);
+
+        jmi_paste.setText("pegar");
+        jmi_paste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_pasteActionPerformed(evt);
+            }
+        });
+        pp_OP.add(jmi_paste);
+
         jd_guardado.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bt_guardar.setText("GUARDAR FLUJO");
@@ -300,8 +346,174 @@ public class Main extends javax.swing.JFrame {
         });
         jd_guardado.getContentPane().add(bt_cargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 106, -1, 39));
 
+        bt_pdf.setText("PDF");
+        bt_pdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_pdfActionPerformed(evt);
+            }
+        });
+        jd_guardado.getContentPane().add(bt_pdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 70, 40));
+
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto_angelrisso/amala cilinder.jpg"))); // NOI18N
         jd_guardado.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 4, 460, 340));
+
+        bt_crearclases.setText("Clase nueva");
+        bt_crearclases.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_crearclasesActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("generar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jp_uml.setBackground(new java.awt.Color(204, 255, 255));
+        jp_uml.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jp_umlMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jp_umlLayout = new javax.swing.GroupLayout(jp_uml);
+        jp_uml.setLayout(jp_umlLayout);
+        jp_umlLayout.setHorizontalGroup(
+            jp_umlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 588, Short.MAX_VALUE)
+        );
+        jp_umlLayout.setVerticalGroup(
+            jp_umlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout uemeeleLayout = new javax.swing.GroupLayout(uemeele.getContentPane());
+        uemeele.getContentPane().setLayout(uemeeleLayout);
+        uemeeleLayout.setHorizontalGroup(
+            uemeeleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(uemeeleLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(uemeeleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bt_crearclases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jp_uml, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        uemeeleLayout.setVerticalGroup(
+            uemeeleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(uemeeleLayout.createSequentialGroup()
+                .addGap(115, 115, 115)
+                .addComponent(bt_crearclases)
+                .addGap(63, 63, 63)
+                .addComponent(jButton3)
+                .addContainerGap(316, Short.MAX_VALUE))
+            .addGroup(uemeeleLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jp_uml, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        buttonGroup1.add(rb_pub);
+        rb_pub.setSelected(true);
+        rb_pub.setText("public");
+
+        buttonGroup1.add(rb_priv);
+        rb_priv.setText("private");
+
+        buttonGroup1.add(rb_pro);
+        rb_pro.setText("protected");
+
+        jLabel10.setText("tipo de variable");
+
+        jLabel11.setText("tipo de variable");
+
+        buttonGroup2.add(rb_int);
+        rb_int.setSelected(true);
+        rb_int.setText("int");
+
+        buttonGroup2.add(rb_float);
+        rb_float.setText("float");
+
+        buttonGroup2.add(rb_string);
+        rb_string.setText("string");
+
+        jLabel12.setText("Nombre");
+
+        bt_attCrear.setText("crear");
+        bt_attCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_attCrearActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jd_clasesLayout = new javax.swing.GroupLayout(jd_clases.getContentPane());
+        jd_clases.getContentPane().setLayout(jd_clasesLayout);
+        jd_clasesLayout.setHorizontalGroup(
+            jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_clasesLayout.createSequentialGroup()
+                .addContainerGap(53, Short.MAX_VALUE)
+                .addGroup(jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_clasesLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(39, 39, 39)
+                        .addGroup(jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tf_nom)
+                            .addGroup(jd_clasesLayout.createSequentialGroup()
+                                .addGroup(jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jd_clasesLayout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(jLabel10))
+                                    .addGroup(jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(rb_pro)
+                                        .addComponent(rb_pub, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(rb_priv, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(71, 71, 71)
+                                .addGroup(jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rb_int)
+                                    .addComponent(jLabel11)
+                                    .addComponent(rb_float)
+                                    .addComponent(rb_string))))
+                        .addGap(82, 82, 82))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_clasesLayout.createSequentialGroup()
+                        .addComponent(bt_attCrear)
+                        .addGap(164, 164, 164))))
+        );
+        jd_clasesLayout.setVerticalGroup(
+            jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_clasesLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addGroup(jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addGroup(jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb_priv)
+                    .addComponent(rb_int))
+                .addGap(18, 18, 18)
+                .addGroup(jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb_pub)
+                    .addComponent(rb_float))
+                .addGap(18, 18, 18)
+                .addGroup(jd_clasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb_pro)
+                    .addComponent(rb_string))
+                .addGap(74, 74, 74)
+                .addComponent(bt_attCrear)
+                .addContainerGap())
+        );
+
+        jMenuItem1.setText("jMenuItem1");
+        pp_uml.add(jMenuItem1);
+
+        jMenuItem2.setText("jMenuItem2");
+        pp_uml.add(jMenuItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PROYECTO");
@@ -361,6 +573,7 @@ public class Main extends javax.swing.JFrame {
             lbl_inicio.setPreferredSize(new Dimension(100, 100));
             lbl_inicio.setSize(100, 70);
             lbl_inicio.setBackground(Color.BLUE);
+            lbl_inicio.setHorizontalTextPosition(SwingConstants.CENTER);
             lbl_inicio.setHorizontalTextPosition(SwingConstants.CENTER);
             lbl_inicio.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
                 public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -422,6 +635,7 @@ public class Main extends javax.swing.JFrame {
                 lbl_inicio.setPreferredSize(new Dimension(100, 100));
                 lbl_inicio.setSize(100, 70);
                 lbl_inicio.setBackground(Color.BLUE);
+                lbl_inicio.setHorizontalTextPosition(SwingConstants.CENTER);
                 lbl_inicio.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
                     public void mouseDragged(java.awt.event.MouseEvent evt) {
                         jl_this = lbl_inicio;
@@ -466,63 +680,190 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_inicioMouseClicked
 
     private void bt_whileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_whileMouseClicked
-        JLabel lbl_wh;
-        lbl_wh = new JLabel();
-        lbl_wh.setOpaque(true);
-        lbl_wh.getName();
-        lbl_wh.setName("While" + c_wh);
-        c_wh++;
+        if (c_finwh == 0) {
+            c_finwh++;
+            JLabel lbl_wh;
+            lbl_wh = new JLabel();
+            lbl_wh.setOpaque(true);
+            lbl_wh.getName();
+            lbl_wh.setName("While" + c_wh);
+            c_wh++;
 
-        labels.add(lbl_wh);
-        lbl_wh.setLocation(10, 150);
-        lbl_wh.setBackground(Color.yellow);
-        lbl_wh.setIcon(new ImageIcon(".\\src\\proyecto_angelrisso\\while2.png"));
-        lbl_wh.setText("WHILE");
-        this.jp_tabla.add(lbl_wh);
-        lbl_wh.setMaximumSize(new Dimension(100, 100));
-        lbl_wh.setMinimumSize(new Dimension(100, 100));
-        lbl_wh.setLocation(new Point(20, 20));
-        lbl_wh.setPreferredSize(new Dimension(100, 100));
-        lbl_wh.setSize(90, 90);
-        lbl_wh.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jl_this = lbl_wh;
-                if ((lbl_wh.getLocation().x + evt.getX() - lbl_wh.getWidth() / 2) >= 0
-                        && (lbl_wh.getLocation().x + evt.getX() - lbl_wh.getWidth() / 2) <= 800) {
-                    lbl_wh.setLocation(lbl_wh.getLocation().x + evt.getX() - lbl_wh.getWidth() / 2,
-                            lbl_wh.getLocation().y + evt.getY() - lbl_wh.getHeight() / 2);
-
-                }
-
-            }
-        });
-        lbl_wh.addMouseListener(new MouseListener() {
-            public void mouseClicked(MouseEvent evt) {
-                jl_this = lbl_wh;
-                if (evt.isMetaDown()) {
+            labels.add(lbl_wh);
+            lbl_wh.setLocation(10, 150);
+            lbl_wh.setBackground(Color.yellow);
+            lbl_wh.setIcon(new ImageIcon(".\\src\\proyecto_angelrisso\\while2.png"));
+            lbl_wh.setText("WHILE");
+            this.jp_tabla.add(lbl_wh);
+            lbl_wh.setMaximumSize(new Dimension(100, 100));
+            lbl_wh.setMinimumSize(new Dimension(100, 100));
+            lbl_wh.setLocation(new Point(20, 20));
+            lbl_wh.setPreferredSize(new Dimension(100, 100));
+            lbl_wh.setSize(90, 90);
+            lbl_wh.setHorizontalTextPosition(SwingConstants.CENTER);
+            lbl_wh.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                public void mouseDragged(java.awt.event.MouseEvent evt) {
                     jl_this = lbl_wh;
-                    System.out.println(jl_this);
-                    System.out.println(lbl_wh.getText());
-                    pp_OP.show(evt.getComponent(), evt.getX(), evt.getY());
+                    if ((lbl_wh.getLocation().x + evt.getX() - lbl_wh.getWidth() / 2) >= 0
+                            && (lbl_wh.getLocation().x + evt.getX() - lbl_wh.getWidth() / 2) <= 800) {
+                        lbl_wh.setLocation(lbl_wh.getLocation().x + evt.getX() - lbl_wh.getWidth() / 2,
+                                lbl_wh.getLocation().y + evt.getY() - lbl_wh.getHeight() / 2);
+
+                    }
+
                 }
-            }
+            });
+            lbl_wh.addMouseListener(new MouseListener() {
+                public void mouseClicked(MouseEvent evt) {
+                    jl_this = lbl_wh;
+                    if (evt.isMetaDown()) {
+                        jl_this = lbl_wh;
+                        System.out.println(jl_this);
+                        System.out.println(lbl_wh.getText());
+                        pp_OP.show(evt.getComponent(), evt.getX(), evt.getY());
+                    }
+                }
 
-            public void mouseEntered(MouseEvent arg0) {
-                jl_this = lbl_wh;
-            }
+                public void mouseEntered(MouseEvent arg0) {
+                    jl_this = lbl_wh;
+                }
 
-            public void mouseExited(MouseEvent arg0) {
-                jl_this = lbl_wh;
-            }
+                public void mouseExited(MouseEvent arg0) {
+                    jl_this = lbl_wh;
+                }
 
-            public void mousePressed(MouseEvent arg0) {
-                jl_this = lbl_wh;
-            }
+                public void mousePressed(MouseEvent arg0) {
+                    jl_this = lbl_wh;
+                }
 
-            public void mouseReleased(MouseEvent arg0) {
+                public void mouseReleased(MouseEvent arg0) {
+                    jl_this = lbl_wh;
+                }
+            });
+        } else if (c_finwh > 0) {
+            int r = JOptionPane.showConfirmDialog(jd_Flujo, "tiene usted " + c_finwh + " while abiertos,\nsi decide que no, se creara otro if",
+                    "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (r != JOptionPane.OK_OPTION) {
+                c_finwh--;
+                JLabel lbl_wh;
+                lbl_wh = new JLabel();
+                lbl_wh.setOpaque(true);
+                lbl_wh.getName();
+                lbl_wh.setName("While" + c_wh);
+                this.jp_tabla.add(lbl_wh);
+
+                lbl_wh.setLocation(10, 150);
+
+                lbl_wh.setBackground(Color.orange);
+                lbl_wh.setIcon(new ImageIcon(".\\src\\proyecto_angelrisso\\while2.png"));
+                lbl_wh.setText("WHILE");
+                lbl_wh.setMaximumSize(new java.awt.Dimension(100, 100));
+                lbl_wh.setMinimumSize(new Dimension(100, 100));
+                lbl_wh.setLocation(new Point(20, 20));
+                lbl_wh.setPreferredSize(new Dimension(50, 50));
+                lbl_wh.setSize(100, 64);
+                lbl_wh.setHorizontalTextPosition(SwingConstants.CENTER);
                 jl_this = lbl_wh;
+                labels.add(lbl_wh);
+                lbl_wh.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                    public void mouseDragged(java.awt.event.MouseEvent evt) {
+                        jl_this = lbl_wh;
+                        if ((lbl_wh.getLocation().x + evt.getX() - lbl_wh.getWidth() / 2) >= 0
+                                && (lbl_wh.getLocation().x + evt.getX() - lbl_wh.getWidth() / 2) <= 800) {
+                            lbl_wh.setLocation(lbl_wh.getLocation().x + evt.getX() - lbl_wh.getWidth() / 2,
+                                    lbl_wh.getLocation().y + evt.getY() - lbl_wh.getHeight() / 2);
+                        }
+
+                    }
+                });
+                lbl_wh.addMouseListener(new MouseListener() {
+                    public void mouseClicked(MouseEvent evt) {
+                        jl_this = lbl_wh;
+                        if (evt.isMetaDown()) {
+                            jl_this = lbl_wh;
+                            System.out.println(jl_this);
+                            pp_OP.show(evt.getComponent(), evt.getX(), evt.getY());
+                        }
+                    }
+
+                    public void mouseEntered(MouseEvent arg0) {
+                        jl_this = lbl_wh;
+                    }
+
+                    public void mouseExited(MouseEvent arg0) {
+                        jl_this = lbl_wh;
+                    }
+
+                    public void mousePressed(MouseEvent arg0) {
+                        jl_this = lbl_wh;
+                    }
+
+                    public void mouseReleased(MouseEvent arg0) {
+                        jl_this = lbl_wh;
+                    }
+                });
+            } else {
+                c_finwh++;
+                JLabel lbl_finwh;
+                lbl_finwh = new JLabel();
+                lbl_finwh.setOpaque(true);
+                lbl_finwh.getName();
+                lbl_finwh.setName("finwh" + c_finwh);
+                this.jp_tabla.add(lbl_finwh);
+
+                lbl_finwh.setLocation(10, 150);
+                lbl_finwh.setHorizontalTextPosition(SwingConstants.CENTER);
+                lbl_finwh.setBackground(Color.orange);
+                lbl_finwh.setIcon(new ImageIcon(".\\src\\proyecto_angelrisso\\while2.png"));
+                lbl_finwh.setText("}");
+                lbl_finwh.setMaximumSize(new java.awt.Dimension(100, 100));
+                lbl_finwh.setMinimumSize(new Dimension(100, 100));
+                lbl_finwh.setLocation(new Point(20, 20));
+                lbl_finwh.setPreferredSize(new Dimension(50, 50));
+                lbl_finwh.setSize(100, 64);
+                jl_this = lbl_finwh;
+                labels.add(lbl_finwh);
+                lbl_finwh.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                    public void mouseDragged(java.awt.event.MouseEvent evt) {
+                        jl_this = lbl_finwh;
+                        if ((lbl_finwh.getLocation().x + evt.getX() - lbl_finwh.getWidth() / 2) >= 0
+                                && (lbl_finwh.getLocation().x + evt.getX() - lbl_finwh.getWidth() / 2) <= 800) {
+                            lbl_finwh.setLocation(lbl_finwh.getLocation().x + evt.getX() - lbl_finwh.getWidth() / 2,
+                                    lbl_finwh.getLocation().y + evt.getY() - lbl_finwh.getHeight() / 2);
+                        }
+
+                    }
+                });
+                lbl_finwh.addMouseListener(new MouseListener() {
+                    public void mouseClicked(MouseEvent evt) {
+                        jl_this = lbl_finwh;
+                        if (evt.isMetaDown()) {
+                            jl_this = lbl_finwh;
+                            System.out.println(jl_this);
+                            pp_OP.show(evt.getComponent(), evt.getX(), evt.getY());
+                        }
+                    }
+
+                    public void mouseEntered(MouseEvent arg0) {
+                        jl_this = lbl_finwh;
+                    }
+
+                    public void mouseExited(MouseEvent arg0) {
+                        jl_this = lbl_finwh;
+                    }
+
+                    public void mousePressed(MouseEvent arg0) {
+                        jl_this = lbl_finwh;
+                    }
+
+                    public void mouseReleased(MouseEvent arg0) {
+                        jl_this = lbl_finwh;
+                    }
+                });
             }
-        });
+        }
+
+
     }//GEN-LAST:event_bt_whileMouseClicked
 
     private void bt_ifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_ifMouseClicked
@@ -550,6 +891,7 @@ public class Main extends javax.swing.JFrame {
             lbl_if.setSize(100, 64);
             jl_this = lbl_if;
             labels.add(lbl_if);
+            lbl_if.setHorizontalTextPosition(SwingConstants.CENTER);
             lbl_if.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
                 public void mouseDragged(java.awt.event.MouseEvent evt) {
                     jl_this = lbl_if;
@@ -588,7 +930,7 @@ public class Main extends javax.swing.JFrame {
                 }
             });
         } else if (c_finif > 0) {
-            int r = JOptionPane.showConfirmDialog(this, "tiene usted " + c_finif + "ifs abiertos,\nsi decide que no, se creara otro if",
+            int r = JOptionPane.showConfirmDialog(jd_Flujo, "tiene usted " + c_finif + " ifs abiertos,\nsi decide que no, se creara otro if",
                     "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (r != JOptionPane.OK_OPTION) {
                 c_finif--;
@@ -1002,7 +1344,10 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_datosActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        uemeele.pack();
+        uemeele.setModal(true);
+        uemeele.setLocationRelativeTo(this);
+        uemeele.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jmi_cambiartxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_cambiartxtActionPerformed
@@ -1021,6 +1366,7 @@ public class Main extends javax.swing.JFrame {
                 labels.remove(jl_this);
             }
         }
+        jp_tabla.repaint();
     }//GEN-LAST:event_jmi_suprimirActionPerformed
 
     private void jmi_fuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_fuenteActionPerformed
@@ -1028,16 +1374,96 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_fuenteActionPerformed
 
     private void bt_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cargarActionPerformed
-        
+        JFileChooser jfc = new JFileChooser();
+        int r = jfc.showOpenDialog(jd_guardado);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            cargarOguardar cog = new cargarOguardar(jfc.getSelectedFile().getPath());
+            cog.cargar();
+            for (JLabel lbl : cog.getLabel()) {
+                labels.add(lbl);
+                jp_tabla.add(lbl);
+                lbl.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                    public void mouseDragged(java.awt.event.MouseEvent evt) {
+                        jl_this = lbl;
+                        if ((lbl.getLocation().x + evt.getX() - lbl.getWidth() / 2) >= 0
+                                && (lbl.getLocation().x + evt.getX() - lbl.getWidth() / 2) <= 800) {
+                            lbl.setLocation(lbl.getLocation().x + evt.getX() - lbl.getWidth() / 2,
+                                    lbl.getLocation().y + evt.getY() - lbl.getHeight() / 2);
+                        }
+
+                    }
+                });
+                lbl.addMouseListener(new MouseListener() {
+                    public void mouseClicked(MouseEvent evt) {
+                        jl_this = lbl;
+                        if (evt.isMetaDown()) {
+                            System.out.println(jl_this);
+                            pp_OP.show(evt.getComponent(), evt.getX(), evt.getY());
+                        }
+                    }
+
+                    public void mouseEntered(MouseEvent arg0) {
+                        jl_this = lbl;
+                    }
+
+                    public void mouseExited(MouseEvent arg0) {
+                        jl_this = lbl;
+                    }
+
+                    public void mousePressed(MouseEvent arg0) {
+                        jl_this = lbl;
+                    }
+
+                    public void mouseReleased(MouseEvent arg0) {
+                        jl_this = lbl;
+                    }
+                });
+            }
+            JOptionPane.showMessageDialog(jd_guardado, "flujo cargado");
+            jp_tabla.repaint();
+        }
     }//GEN-LAST:event_bt_cargarActionPerformed
 
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
-         String[] buttons = { "png", "jpeg", "No", "Cancel" };
+        String[] buttons = {"png", "jpeg", "No", "Cancel"};
 
-    int rc = JOptionPane.showOptionDialog(null, "En que va a guardar, conste que siempre se crea un\n"
-            + "archivo binario", "Confirmation",
-        JOptionPane.WARNING_MESSAGE, 0, null, buttons, buttons[2]);
+        int rc = JOptionPane.showOptionDialog(null, "En que va a guardar, conste que siempre se crea un\n"
+                + "archivo binario", "Confirmation",
+                JOptionPane.WARNING_MESSAGE, 0, null, buttons, buttons[2]);
         System.out.println(rc);
+        if (rc == 0) {
+            JFileChooser jfc = new JFileChooser();
+            int op = jfc.showSaveDialog(jd_Flujo);
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imagen png", "png");
+            jfc.addChoosableFileFilter(filtro);
+            if (op == JFileChooser.APPROVE_OPTION) {
+                Dimension d = jp_tabla.getSize();
+                BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
+                jp_tabla.paint(image.getGraphics());
+                try {
+                    ImageIO.write(image, "png", new File(jfc.getSelectedFile().getPath() + ".png"));
+                    path = jfc.getSelectedFile().getPath();
+                    System.out.println(path);
+
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                cargarOguardar cog = new cargarOguardar(jfc.getSelectedFile().getPath() + ".SOTA");
+                for (JLabel t : labels) {
+                    cog.getLabel().add(t);
+                }
+                cog.cargar();
+                try {
+                    cog.crear();
+                } catch (Exception e) {
+
+                }
+                JOptionPane.showMessageDialog(jd_Flujo, "Imagen y binario guardados exitosamente");
+            }
+
+        } else if (rc == 1) {
+
+        }
     }//GEN-LAST:event_bt_guardarActionPerformed
 
     private void bt_adminGuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_adminGuarActionPerformed
@@ -1046,6 +1472,316 @@ public class Main extends javax.swing.JFrame {
         jd_guardado.setModal(false);
         jd_guardado.setVisible(true);
     }//GEN-LAST:event_bt_adminGuarActionPerformed
+
+    private void bt_pdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_pdfActionPerformed
+        JFileChooser jfc = new JFileChooser();
+        int op = jfc.showSaveDialog(jd_guardado);
+        if (op == JFileChooser.APPROVE_OPTION) {
+            try {
+                System.out.println(path);
+                Document document = new Document(PageSize.A4);
+                PdfWriter.getInstance(document, new FileOutputStream(jfc.getSelectedFile().getPath() + ".pdf"));
+                document.open();
+                com.itextpdf.text.Image imagen = com.itextpdf.text.Image.getInstance(path + ".png");
+                imagen.scaleAbsolute(500, 500);
+                imagen.setAlignment(Element.ALIGN_CENTER);
+                document.add(imagen);
+                document.close();
+
+            } catch (FileNotFoundException ex) {
+            } catch (DocumentException | IOException ex) {
+            }
+
+        }
+        JOptionPane.showMessageDialog(jd_guardado, "guardado como pdf, de alguna manera");
+    }//GEN-LAST:event_bt_pdfActionPerformed
+
+    private void bt_crearclasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_crearclasesActionPerformed
+        jd_clases.pack();
+        jd_clases.setModal(true);
+        jd_clases.setLocationRelativeTo(uemeele);
+        jd_clases.setVisible(true);
+        
+    }//GEN-LAST:event_bt_crearclasesActionPerformed
+
+    private void bt_attCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_attCrearActionPerformed
+        String cosa = "";
+        String nombre = "";
+        String tipo = "";
+        if (rb_pub.isSelected()) {
+            cosa = "public";
+        }
+        if (rb_priv.isSelected()) {
+            cosa = "private";
+        }
+        if (rb_pro.isSelected()) {
+            cosa = "protected";
+        }
+        if (rb_float.isSelected()) {
+            tipo = "double";
+        }
+        if (rb_int.isSelected()) {
+            tipo = "int";
+        }
+        if (rb_string.isSelected()) {
+            tipo = "string";
+        }
+        nombre = tf_nom.getText();
+        JLabel atributo = new JLabel();
+        cont += 100;
+        atributo.setText(cosa + " " + tipo + " " + nombre);
+        atributo.setLocation(este.getX(), este.getY() + cont);
+        atributo.setOpaque(true);
+        atributo.setBackground(Color.ORANGE);
+        atributo.setHorizontalTextPosition(SwingConstants.CENTER);
+        atributo.setSize(100, 65);
+        for (clases c : clase) {
+            if (c.getClase().equals(este)) {
+                este.add(atributo);
+                c.getLista().add(atributo);
+
+            }
+        }
+        este.revalidate();
+        este.repaint();
+        jp_uml.revalidate();
+        jp_uml.repaint();
+        jd_clases.dispose();
+
+        JOptionPane.showMessageDialog(uemeele, "Atributo agregado correctamente");
+
+    }//GEN-LAST:event_bt_attCrearActionPerformed
+
+    private void jmi_copyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_copyActionPerformed
+        ctrlv.add(jl_this);
+        JOptionPane.showMessageDialog(jd_Flujo, "copiado");
+    }//GEN-LAST:event_jmi_copyActionPerformed
+
+    private void jmi_pasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_pasteActionPerformed
+        for (JLabel j : ctrlv) {
+            labels.add(j);
+            jp_tabla.add(j);
+            jp_tabla.repaint();
+        }
+        JOptionPane.showMessageDialog(jd_Flujo, "pegado");
+    }//GEN-LAST:event_jmi_pasteActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        File archivo = new File("./archivo1.txt");
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        for (clases clase : clase) {
+            if (este.equals(clase.getClase())) {
+                try {
+                    fw = new FileWriter(archivo, true);
+                    bw = new BufferedWriter(fw);
+                    bw.write("#include<iostream>");
+                    bw.write("\n");
+                    bw.write("#include <string>");
+                    bw.write("\n");
+                    bw.write("#ifndef" + " " + clase.getLista().get(0).getText().toUpperCase() + "_CPP");
+                    bw.write("\n");
+                    bw.write("#define" + " " + clase.getLista().get(0).getText().toUpperCase() + "_CPP");
+                    bw.write("\n");
+                    bw.write("using namespace std;");
+                    bw.write("\n");
+                    bw.write("class" + " " + clase.getLista().get(0).getText() + "{");
+                    bw.write("\n");
+                    bw.write(" " + "private:");
+                    bw.write("\n");
+                    for (JLabel label : clase.getLista()) {
+                        if (label.getText().contains("private")) {
+                            bw.write("  " + label.getText().replace("private", ""));
+                            bw.write(";");
+                            bw.write("\n");
+                            con++;
+                        }
+                    }
+                    bw.write(" " + "protected:");
+                    bw.write("\n");
+                    for (JLabel label : clase.getLista()) {
+                        if (label.getText().contains("protected")) {
+                            bw.write("  " + label.getText().replace("protected", ""));
+                            bw.write(";");
+                            bw.write("\n");
+                            con++;
+                        }
+                    }
+                    bw.write(" " + "public:");
+                    bw.write("\n");
+                    for (JLabel label : clase.getLista()) {
+                        if (label.getText().contains("public")) {
+                            bw.write("  " + label.getText().replace("public", ""));
+                            bw.write(";");
+                            bw.write("\n");
+                            con++;
+                        }
+                    }
+                    bw.write("  " + clase.getLista().get(0).getText() + "()" + "{");
+                    bw.write("\n");
+
+                    for (JLabel label : clase.getLista()) {
+                        if (label.getText().contains("int")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("   " + label.getText().replace("private", "").replace("int", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("   " + label.getText().replace("protected", "").replace("int", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("   " + label.getText().replace("public", "").replace("int", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                        if (label.getText().contains("double")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("   " + label.getText().replace("private", "").replace("double", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("   " + label.getText().replace("protected", "").replace("double", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("   " + label.getText().replace("public", "").replace("double", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                        if (label.getText().contains("string")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("   " + label.getText().replace("private", "").replace("string", "") + "=\"Hola\"");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("   " + label.getText().replace("protected", "").replace("string", "") + "=\"Hola\"");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("   " + label.getText().replace("public", "").replace("string", "") + "=\"Hola\"");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                    }
+                    bw.write("  " + "}");
+                    bw.write("\n");
+                    bw.write("  " + clase.getLista().get(0).getText());
+                    bw.write("(");
+                    bw.write("int valor,double decimal,string cadena");
+                    bw.write(")");
+                    bw.write("{");
+                    bw.write("\n");
+                    for (JLabel label : clase.getLista()) {
+                        if (label.getText().contains("int")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("    " + label.getText().replace("private", "").replace("int", "") + "=valor");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("    " + label.getText().replace("protected", "").replace("int", "") + "=valor");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("    " + label.getText().replace("public", "").replace("int", "") + "=valor");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                        if (label.getText().contains("double")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("    " + label.getText().replace("private", "").replace("double", "") + "=decimal");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("    " + label.getText().replace("protected", "").replace("double", "") + "=decimal");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("    " + label.getText().replace("public", "").replace("double", "") + "=decimal");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                        if (label.getText().contains("string")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("    " + label.getText().replace("private", "").replace("string", "") + "=cadena");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("    " + label.getText().replace("protected", "").replace("string", "") + "=cadena");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("    " + label.getText().replace("public", "").replace("string", "") + "=cadena");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                    }
+                    bw.write(" " + "}");
+                    bw.write("\n");
+                    bw.write("};");
+                    bw.write("\n");
+                    bw.write("#endif");
+                    bw.write("\n");
+                    bw.write("\n");
+                    bw.write("#include <iostream>\n"
+                            + "\"#include\" + '\"' + clase.getLista().get(0).getText() + \".cpp\" + '\"'"+"\n"
+                            + "using namespace std;\n"
+                            + "int main(){\n"
+                            + "return 0;\n"
+                            + "}"
+                            + ""
+                            + "");
+                    bw.flush();
+
+
+
+              
+                  
+
+                    try {
+                        bw.close();
+                        fw.close();
+                    } catch (IOException ex) {
+                    }
+                } catch (IOException ex) {
+                }
+                tp_text.removeAll();
+                String codigo = archv("./archivo1.txt");
+                tp_text.setText(codigo);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ex) {
+                }
+                JOptionPane.showMessageDialog(uemeele, "Codigo de la clase generado exitosamente");
+                
+
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jp_umlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jp_umlMouseClicked
+        if (evt.isMetaDown()) {
+            pp_uml.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jp_umlMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1084,18 +1820,27 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_adminGuar;
+    private javax.swing.JButton bt_attCrear;
     private javax.swing.JButton bt_cargar;
     private javax.swing.JButton bt_conh;
     private javax.swing.JButton bt_conv;
+    private javax.swing.JButton bt_crearclases;
     private javax.swing.JButton bt_datos;
     private javax.swing.JButton bt_flujo;
     private javax.swing.JButton bt_gen;
     private javax.swing.JButton bt_guardar;
     private javax.swing.JButton bt_if;
     private javax.swing.JButton bt_inicio;
+    private javax.swing.JButton bt_pdf;
     private javax.swing.JButton bt_while;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1104,23 +1849,44 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JDialog jd_Flujo;
+    private javax.swing.JDialog jd_clases;
     private javax.swing.JDialog jd_gen;
     private javax.swing.JDialog jd_guardado;
     private javax.swing.JMenuItem jmi_cambiartxt;
+    private javax.swing.JMenuItem jmi_copy;
     private javax.swing.JMenuItem jmi_fuente;
+    private javax.swing.JMenuItem jmi_paste;
     private javax.swing.JMenuItem jmi_suprimir;
     private javax.swing.JPanel jp_tabla;
+    private javax.swing.JPanel jp_uml;
     private javax.swing.JPopupMenu pp_OP;
+    private javax.swing.JPopupMenu pp_uml;
+    private javax.swing.JRadioButton rb_float;
+    private javax.swing.JRadioButton rb_int;
+    private javax.swing.JRadioButton rb_priv;
+    private javax.swing.JRadioButton rb_pro;
+    private javax.swing.JRadioButton rb_pub;
+    private javax.swing.JRadioButton rb_string;
+    private javax.swing.JTextField tf_nom;
     private javax.swing.JTextPane tp_text;
+    private javax.swing.JDialog uemeele;
     // End of variables declaration//GEN-END:variables
-JLabel jl_this = null;
+    String path;
+    JLabel jl_this = null;
     int c_if = 0;
     int c_dato = 0;
     int c_wh = 0;
     int c_sv = 0;
     int c_sh = 0;
     int c_finif = 0;
-   
+    int c_finwh = 0;
+    JPanel este = null;
+    int cont = 0;
+    int con=0;
+    ArrayList<clases> clase = new ArrayList();
+    ArrayList<JLabel> ctrlv = new ArrayList();
 }

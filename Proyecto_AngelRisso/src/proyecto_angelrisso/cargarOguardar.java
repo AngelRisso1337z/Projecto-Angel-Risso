@@ -7,7 +7,11 @@ package proyecto_angelrisso;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 
@@ -15,7 +19,7 @@ import javax.swing.JLabel;
  *
  * @author HP_AMD_64
  */
-public class cargarOguardar {
+public class cargarOguardar implements Serializable {
 
     private File file=null;
     private JLabel cosa;
@@ -68,6 +72,27 @@ public class cargarOguardar {
                 fis.close();
             }
         } catch (Exception e) {
+            
+        }
+    }
+    public void crear(){
+        FileOutputStream fos=null;
+        ObjectOutputStream oos=null;
+        
+        try {
+        fos= new FileOutputStream(file);
+        oos=new ObjectOutputStream(fos);
+            for (JLabel jLabel : label) {
+                oos.writeObject(jLabel);
+            }
+            oos.flush();
+        } catch (Exception e) {
+            
+        }
+        try {
+            oos.close();
+            fos.close();
+        } catch (IOException e) {
         }
     }
     
