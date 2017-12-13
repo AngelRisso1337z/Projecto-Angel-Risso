@@ -407,6 +407,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         bt_cargaruml.setText("cargar");
+        bt_cargaruml.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cargarumlActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout uemeeleLayout = new javax.swing.GroupLayout(uemeele.getContentPane());
         uemeele.getContentPane().setLayout(uemeeleLayout);
@@ -1639,7 +1644,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_pasteActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        File archivo = new File("./archivo1.txt");
+        File archivo = new File("./archivuml.txt");
         FileWriter fw = null;
         BufferedWriter bw = null;
         for (clases clase : clase) {
@@ -1828,7 +1833,7 @@ public class Main extends javax.swing.JFrame {
                 } catch (IOException ex) {
                 }
                 tp_text.removeAll();
-                String codigo = archv("./archivo1.txt");
+                String codigo = archv("./archivuml.txt");
                 tp_text.setText(codigo);
                 try {
                     Thread.sleep(3000);
@@ -1847,6 +1852,10 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jp_umlMouseClicked
 
     private void jmi_organizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_organizarActionPerformed
+        jd_clases.pack();
+        jd_clases.setModal(true);
+        jd_clases.setLocationRelativeTo(uemeele);
+        jd_clases.setVisible(true);
         String cosa = "";
         String nombre = "";
         String tipo = "";
@@ -2093,7 +2102,10 @@ public class Main extends javax.swing.JFrame {
                 } catch (InterruptedException ex) {
                 }
                 JOptionPane.showMessageDialog(uemeele, "Codigo de la clase generado exitosamente");
-
+                jd_gen.setModal(true);
+                jd_gen.setVisible(true);
+                jd_gen.setLocationRelativeTo(uemeele);
+                jd_gen.pack();
             }
         }
     }//GEN-LAST:event_jmi_generarActionPerformed
@@ -2136,6 +2148,64 @@ public class Main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(uemeele, "UML guardado exitosamente, como SOTA2");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void bt_cargarumlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cargarumlActionPerformed
+        JFileChooser jfc = new JFileChooser();
+
+        int op = jfc.showOpenDialog(uemeele);
+        if (op == JFileChooser.APPROVE_OPTION) {
+            umlcargar uc = new umlcargar(jfc.getSelectedFile().getPath());
+            uc.cargarArchivo();
+            for (clases clasee : uc.getClases()) {
+                clase.add(clasee);
+                jp_uml.add(clasee.getClase());
+
+                clasee.getClase().addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                    public void mouseDragged(java.awt.event.MouseEvent evt) {
+                        este = clasee.getClase();
+                        clasee.getClase().setLocation(clasee.getClase().getLocation().x + evt.getX() - clasee.getClase().getWidth() / 2,
+                                clasee.getClase().getLocation().y + evt.getY() - clasee.getClase().getHeight() / 2);
+                    }
+                });
+
+                clasee.getClase().addMouseListener(new MouseListener() {
+                    public void mouseClicked(MouseEvent evt) {
+                        este = clasee.getClase();
+                        if (evt.isMetaDown()) {
+                            este = clasee.getClase();
+                            pp_uml.show(evt.getComponent(), evt.getX(), evt.getY());
+
+                        }
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        este = clasee.getClase();
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        este = clasee.getClase();
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        este = clasee.getClase();
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        este = clasee.getClase();
+                    }
+                });
+            }
+            JOptionPane.showMessageDialog(uemeele, "UML cargado exitosamente");
+            jp_uml.revalidate();
+            jp_uml.repaint();
+
+        }
+
+    }//GEN-LAST:event_bt_cargarumlActionPerformed
 
     /**
      * @param args the command line arguments

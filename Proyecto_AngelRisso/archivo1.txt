@@ -1,0 +1,27 @@
+#include<iostream>
+#include <string>
+#ifndef HOKLA_CPP
+#define HOKLA_CPP
+using namespace std;
+class hokla{
+ private:
+ protected:
+ public:
+   string peola;
+   int aire;
+  hokla(){
+     peola="Hola";
+     aire=1;
+  }
+  hokla(int valor,double decimal,string cadena){
+      peola=cadena;
+      aire=valor;
+ }
+};
+#endif
+#include <iostream>
+"#include" + '"' + clase.getLista().get(0).getText() + ".cpp" + '"'
+using namespace std;
+int main(){
+return 0;
+}

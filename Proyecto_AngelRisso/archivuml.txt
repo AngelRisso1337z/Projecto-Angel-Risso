@@ -1,0 +1,58 @@
+#include<iostream>
+#include <string>
+#ifndef NEPE_CPP
+#define NEPE_CPP
+using namespace std;
+class nepe{
+ private:
+   double Hola;
+ protected:
+ public:
+   string Hola2;
+  nepe(){
+     Hola=1;
+     Hola2="Hola";
+  }
+  nepe(int valor,double decimal,string cadena){
+      Hola=decimal;
+      Hola2=cadena;
+ }
+};
+#endif
+
+#include <iostream>
+"#include" + '"' + clase.getLista().get(0).getText() + ".cpp" + '"'
+using namespace std;
+int main(){
+return 0;
+}#include<iostream>
+#include <string>
+#ifndef BALA_CPP
+#define BALA_CPP
+using namespace std;
+class bala{
+ private:
+ protected:
+ public:
+   double granos;
+   string marca;
+   int calibre;
+  bala(){
+     granos=1;
+     marca="Hola";
+     calibre=1;
+  }
+  bala(int valor,double decimal,string cadena){
+      granos=decimal;
+      marca=cadena;
+      calibre=valor;
+ }
+};
+#endif
+
+#include <iostream>
+"#include" + '"' + clase.getLista().get(0).getText() + ".cpp" + '"'
+using namespace std;
+int main(){
+return 0;
+}
