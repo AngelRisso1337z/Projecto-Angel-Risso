@@ -91,6 +91,9 @@ public class Main extends javax.swing.JFrame {
         bt_crearclases = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jp_uml = new javax.swing.JPanel();
+        bt_ward = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        bt_cargaruml = new javax.swing.JButton();
         jd_clases = new javax.swing.JDialog();
         rb_pub = new javax.swing.JRadioButton();
         rb_priv = new javax.swing.JRadioButton();
@@ -106,8 +109,8 @@ public class Main extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         pp_uml = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jmi_organizar = new javax.swing.JMenuItem();
+        jmi_generar = new javax.swing.JMenuItem();
         bt_flujo = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -382,22 +385,45 @@ public class Main extends javax.swing.JFrame {
         jp_uml.setLayout(jp_umlLayout);
         jp_umlLayout.setHorizontalGroup(
             jp_umlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
+            .addGap(0, 544, Short.MAX_VALUE)
         );
         jp_umlLayout.setVerticalGroup(
             jp_umlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        bt_ward.setText("guardar como png");
+        bt_ward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_wardActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("guardar como SOTA2");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        bt_cargaruml.setText("cargar");
+
         javax.swing.GroupLayout uemeeleLayout = new javax.swing.GroupLayout(uemeele.getContentPane());
         uemeele.getContentPane().setLayout(uemeeleLayout);
         uemeeleLayout.setHorizontalGroup(
             uemeeleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(uemeeleLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(uemeeleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bt_crearclases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(uemeeleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(uemeeleLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(uemeeleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bt_crearclases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_ward, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(uemeeleLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(bt_cargaruml)))
                 .addGap(34, 34, 34)
                 .addComponent(jp_uml, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -409,7 +435,13 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(bt_crearclases)
                 .addGap(63, 63, 63)
                 .addComponent(jButton3)
-                .addContainerGap(316, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(bt_ward)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addComponent(bt_cargaruml)
+                .addGap(37, 37, 37))
             .addGroup(uemeeleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jp_uml, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -509,11 +541,21 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenuItem1.setText("jMenuItem1");
-        pp_uml.add(jMenuItem1);
+        jmi_organizar.setText("modificar");
+        jmi_organizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_organizarActionPerformed(evt);
+            }
+        });
+        pp_uml.add(jmi_organizar);
 
-        jMenuItem2.setText("jMenuItem2");
-        pp_uml.add(jMenuItem2);
+        jmi_generar.setText("generar codigo");
+        jmi_generar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_generarActionPerformed(evt);
+            }
+        });
+        pp_uml.add(jmi_generar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PROYECTO");
@@ -693,7 +735,8 @@ public class Main extends javax.swing.JFrame {
             lbl_wh.setLocation(10, 150);
             lbl_wh.setBackground(Color.yellow);
             lbl_wh.setIcon(new ImageIcon(".\\src\\proyecto_angelrisso\\while2.png"));
-            lbl_wh.setText("WHILE");
+            String s = JOptionPane.showInputDialog("ingrese que va a validar, debe de ser verdadero o si no error en compilado");
+            lbl_wh.setText(s);
             this.jp_tabla.add(lbl_wh);
             lbl_wh.setMaximumSize(new Dimension(100, 100));
             lbl_wh.setMinimumSize(new Dimension(100, 100));
@@ -756,7 +799,8 @@ public class Main extends javax.swing.JFrame {
 
                 lbl_wh.setBackground(Color.orange);
                 lbl_wh.setIcon(new ImageIcon(".\\src\\proyecto_angelrisso\\while2.png"));
-                lbl_wh.setText("WHILE");
+                String s = JOptionPane.showInputDialog("ingrese que va a validar, debe de ser verdadero o si no error en compilado");
+                lbl_wh.setText(s);
                 lbl_wh.setMaximumSize(new java.awt.Dimension(100, 100));
                 lbl_wh.setMinimumSize(new Dimension(100, 100));
                 lbl_wh.setLocation(new Point(20, 20));
@@ -882,7 +926,8 @@ public class Main extends javax.swing.JFrame {
 
             lbl_if.setBackground(Color.orange);
             lbl_if.setIcon(new ImageIcon(".\\src\\proyecto_angelrisso\\if.png"));
-            lbl_if.setText("IF");
+            String s = JOptionPane.showInputDialog("ingrese que va a validar, debe de ser verdadero o si no error en compilado");
+            lbl_if.setText(s);
             lbl_if.setMaximumSize(new java.awt.Dimension(100, 100));
             lbl_if.setMinimumSize(new Dimension(100, 100));
             lbl_if.setLocation(new Point(20, 20));
@@ -945,7 +990,8 @@ public class Main extends javax.swing.JFrame {
 
                 lbl_if.setBackground(Color.orange);
                 lbl_if.setIcon(new ImageIcon(".\\src\\proyecto_angelrisso\\if.png"));
-                lbl_if.setText("IF");
+                String s = JOptionPane.showInputDialog("ingrese que va a validar, debe de ser verdadero o si no error en compilado");
+                lbl_if.setText(s);
                 lbl_if.setMaximumSize(new java.awt.Dimension(100, 100));
                 lbl_if.setMinimumSize(new Dimension(100, 100));
                 lbl_if.setLocation(new Point(20, 20));
@@ -1005,6 +1051,7 @@ public class Main extends javax.swing.JFrame {
                 lbl_finif.setBackground(Color.orange);
                 lbl_finif.setIcon(new ImageIcon(".\\src\\proyecto_angelrisso\\if.png"));
                 lbl_finif.setText("}");
+                lbl_finif.setHorizontalTextPosition(SwingConstants.CENTER);
                 lbl_finif.setMaximumSize(new java.awt.Dimension(100, 100));
                 lbl_finif.setMinimumSize(new Dimension(100, 100));
                 lbl_finif.setLocation(new Point(20, 20));
@@ -1061,9 +1108,13 @@ public class Main extends javax.swing.JFrame {
         lbl_sv.setName("lbl_sv" + c_sv);
         c_sv++;
         jp_tabla.add(lbl_sv);
-        labels.add(lbl_sv);
-        lbl_sv.setBackground(Color.black);
+
+        lbl_sv.setBackground(Color.MAGENTA);
         lbl_sv.setLocation(10, 200);
+        String s = JOptionPane.showInputDialog("Ingrese que va a hacer con esto\nejemplo, n+m, debe contener un dato existente"
+                + "\nsino, error de compilado");
+        lbl_sv.setText(s);
+        lbl_sv.setHorizontalTextPosition(SwingConstants.CENTER);
         lbl_sv.setIcon(new ImageIcon("src\\separador.png"));
         lbl_sv.setMaximumSize(new java.awt.Dimension(100, 100));
         lbl_sv.setMinimumSize(new Dimension(100, 100));
@@ -1071,7 +1122,7 @@ public class Main extends javax.swing.JFrame {
         lbl_sv.setPreferredSize(new Dimension(50, 50));
         lbl_sv.setSize(6, 100);
         jl_this = lbl_sv;
-
+        labels.add(lbl_sv);
         lbl_sv.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jl_this = lbl_sv;
@@ -1227,6 +1278,16 @@ public class Main extends javax.swing.JFrame {
                     bw = new BufferedWriter(fw);
                     bw.write("}");
                 } catch (Exception e) {
+                }
+            }
+            if (l.getName().equals("lbl_sv" + c_sv)) {
+                try {
+
+                    fw = new FileWriter(archivo, true);
+                    bw = new BufferedWriter(fw);
+                    bw.write(l.getText());
+                    bw.flush();
+                } catch (IOException iOException) {
                 }
             }
             if (l.getName().equals("fin")) {
@@ -1497,58 +1558,69 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_pdfActionPerformed
 
     private void bt_crearclasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_crearclasesActionPerformed
-        jd_clases.pack();
-        jd_clases.setModal(true);
-        jd_clases.setLocationRelativeTo(uemeele);
-        jd_clases.setVisible(true);
-        
+
+        String nombre = JOptionPane.showInputDialog("Ingrese nombre de la clase");
+        JPanel panel;
+        panel = new JPanel();
+        panel.setBackground(Color.blue);
+        JLabel titulo = new JLabel();
+        titulo.setText(nombre);
+        panel.add(titulo);
+        jp_uml.add(panel);
+        titulo.setLocation(10, 100);
+        titulo.setOpaque(true);
+        titulo.setBackground(Color.orange);
+        titulo.setHorizontalTextPosition(SwingConstants.CENTER);
+        titulo.setSize(100, 65);
+        panel.setLocation(10, 200);
+        panel.setSize(150, 150);
+        clases cc = new clases(panel);
+        clase.add(cc);
+        cc.getLista().add(titulo);
+
+        este = panel;
+        panel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                este = panel;
+                este.setLocation(este.getLocation().x + evt.getX() - este.getWidth() / 2,
+                        este.getLocation().y + evt.getY() - este.getHeight() / 2);
+            }
+        });
+
+        panel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                este = panel;
+                if (evt.isMetaDown()) {
+                    este = panel;
+                    pp_uml.show(evt.getComponent(), evt.getX(), evt.getY());
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                este = panel;
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                este = panel;
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                este = panel;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                este = panel;
+            }
+        });
+
     }//GEN-LAST:event_bt_crearclasesActionPerformed
 
     private void bt_attCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_attCrearActionPerformed
-        String cosa = "";
-        String nombre = "";
-        String tipo = "";
-        if (rb_pub.isSelected()) {
-            cosa = "public";
-        }
-        if (rb_priv.isSelected()) {
-            cosa = "private";
-        }
-        if (rb_pro.isSelected()) {
-            cosa = "protected";
-        }
-        if (rb_float.isSelected()) {
-            tipo = "double";
-        }
-        if (rb_int.isSelected()) {
-            tipo = "int";
-        }
-        if (rb_string.isSelected()) {
-            tipo = "string";
-        }
-        nombre = tf_nom.getText();
-        JLabel atributo = new JLabel();
-        cont += 100;
-        atributo.setText(cosa + " " + tipo + " " + nombre);
-        atributo.setLocation(este.getX(), este.getY() + cont);
-        atributo.setOpaque(true);
-        atributo.setBackground(Color.ORANGE);
-        atributo.setHorizontalTextPosition(SwingConstants.CENTER);
-        atributo.setSize(100, 65);
-        for (clases c : clase) {
-            if (c.getClase().equals(este)) {
-                este.add(atributo);
-                c.getLista().add(atributo);
-
-            }
-        }
-        este.revalidate();
-        este.repaint();
-        jp_uml.revalidate();
-        jp_uml.repaint();
-        jd_clases.dispose();
-
-        JOptionPane.showMessageDialog(uemeele, "Atributo agregado correctamente");
 
     }//GEN-LAST:event_bt_attCrearActionPerformed
 
@@ -1729,8 +1801,8 @@ public class Main extends javax.swing.JFrame {
                             }
                             if (label.getText().contains("public")) {
                                 bw.write("    " + label.getText().replace("public", "").replace("string", "") + "=cadena");
-                                bw.write(";");
-                                bw.write("\n");
+                                bw.write(";\n");
+
                             }
                         }
                     }
@@ -1738,23 +1810,15 @@ public class Main extends javax.swing.JFrame {
                     bw.write("\n");
                     bw.write("};");
                     bw.write("\n");
-                    bw.write("#endif");
-                    bw.write("\n");
-                    bw.write("\n");
+                    bw.write("#endif\n");
+
                     bw.write("#include <iostream>\n"
-                            + "\"#include\" + '\"' + clase.getLista().get(0).getText() + \".cpp\" + '\"'"+"\n"
+                            + "\"#include\" + '\"' + clase.getLista().get(0).getText() + \".cpp\" + '\"'" + "\n"
                             + "using namespace std;\n"
                             + "int main(){\n"
                             + "return 0;\n"
-                            + "}"
-                            + ""
-                            + "");
+                            + "}\n");
                     bw.flush();
-
-
-
-              
-                  
 
                     try {
                         bw.close();
@@ -1771,7 +1835,6 @@ public class Main extends javax.swing.JFrame {
                 } catch (InterruptedException ex) {
                 }
                 JOptionPane.showMessageDialog(uemeele, "Codigo de la clase generado exitosamente");
-                
 
             }
         }
@@ -1782,6 +1845,297 @@ public class Main extends javax.swing.JFrame {
             pp_uml.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_jp_umlMouseClicked
+
+    private void jmi_organizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_organizarActionPerformed
+        String cosa = "";
+        String nombre = "";
+        String tipo = "";
+        if (rb_pub.isSelected()) {
+            cosa = "public";
+        }
+        if (rb_priv.isSelected()) {
+            cosa = "private";
+        }
+        if (rb_pro.isSelected()) {
+            cosa = "protected";
+        }
+        if (rb_float.isSelected()) {
+            tipo = "double";
+        }
+        if (rb_int.isSelected()) {
+            tipo = "int";
+        }
+        if (rb_string.isSelected()) {
+            tipo = "string";
+        }
+        nombre = tf_nom.getText();
+        JLabel atributo = new JLabel();
+        cont += 100;
+        atributo.setText(cosa + " " + tipo + " " + nombre);
+        atributo.setLocation(este.getX(), este.getY() + cont);
+        atributo.setOpaque(true);
+        atributo.setBackground(Color.ORANGE);
+        atributo.setHorizontalTextPosition(SwingConstants.CENTER);
+        atributo.setSize(100, 65);
+        for (clases c : clase) {
+            if (c.getClase().equals(este)) {
+                este.add(atributo);
+                c.getLista().add(atributo);
+
+            }
+        }
+        este.revalidate();
+        este.repaint();
+        jp_uml.revalidate();
+        jp_uml.repaint();
+        jd_clases.dispose();
+
+        JOptionPane.showMessageDialog(uemeele, "Atributo agregado correctamente");
+    }//GEN-LAST:event_jmi_organizarActionPerformed
+
+    private void jmi_generarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_generarActionPerformed
+        File archivo = new File("./archivuml.txt");
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        for (clases clase : clase) {
+            if (este.equals(clase.getClase())) {
+                try {
+                    fw = new FileWriter(archivo, true);
+                    bw = new BufferedWriter(fw);
+                    bw.write("#include<iostream>");
+                    bw.write("\n");
+                    bw.write("#include <string>");
+                    bw.write("\n");
+                    bw.write("#ifndef" + " " + clase.getLista().get(0).getText().toUpperCase() + "_CPP");
+                    bw.write("\n");
+                    bw.write("#define" + " " + clase.getLista().get(0).getText().toUpperCase() + "_CPP");
+                    bw.write("\n");
+                    bw.write("using namespace std;");
+                    bw.write("\n");
+                    bw.write("class" + " " + clase.getLista().get(0).getText() + "{");
+                    bw.write("\n");
+                    bw.write(" " + "private:");
+                    bw.write("\n");
+                    for (JLabel label : clase.getLista()) {
+                        if (label.getText().contains("private")) {
+                            bw.write("  " + label.getText().replace("private", ""));
+                            bw.write(";");
+                            bw.write("\n");
+                            con++;
+                        }
+                    }
+                    bw.write(" " + "protected:");
+                    bw.write("\n");
+                    for (JLabel label : clase.getLista()) {
+                        if (label.getText().contains("protected")) {
+                            bw.write("  " + label.getText().replace("protected", ""));
+                            bw.write(";");
+                            bw.write("\n");
+                            con++;
+                        }
+                    }
+                    bw.write(" " + "public:");
+                    bw.write("\n");
+                    for (JLabel label : clase.getLista()) {
+                        if (label.getText().contains("public")) {
+                            bw.write("  " + label.getText().replace("public", ""));
+                            bw.write(";");
+                            bw.write("\n");
+                            con++;
+                        }
+                    }
+                    bw.write("  " + clase.getLista().get(0).getText() + "()" + "{");
+                    bw.write("\n");
+
+                    for (JLabel label : clase.getLista()) {
+                        if (label.getText().contains("int")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("   " + label.getText().replace("private", "").replace("int", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("   " + label.getText().replace("protected", "").replace("int", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("   " + label.getText().replace("public", "").replace("int", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                        if (label.getText().contains("double")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("   " + label.getText().replace("private", "").replace("double", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("   " + label.getText().replace("protected", "").replace("double", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("   " + label.getText().replace("public", "").replace("double", "") + "=1");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                        if (label.getText().contains("string")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("   " + label.getText().replace("private", "").replace("string", "") + "=\"Hola\"");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("   " + label.getText().replace("protected", "").replace("string", "") + "=\"Hola\"");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("   " + label.getText().replace("public", "").replace("string", "") + "=\"Hola\"");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                    }
+                    bw.write("  " + "}");
+                    bw.write("\n");
+                    bw.write("  " + clase.getLista().get(0).getText());
+                    bw.write("(");
+                    bw.write("int valor,double decimal,string cadena");
+                    bw.write(")");
+                    bw.write("{");
+                    bw.write("\n");
+                    for (JLabel label : clase.getLista()) {
+                        if (label.getText().contains("int")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("    " + label.getText().replace("private", "").replace("int", "") + "=valor");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("    " + label.getText().replace("protected", "").replace("int", "") + "=valor");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("    " + label.getText().replace("public", "").replace("int", "") + "=valor");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                        if (label.getText().contains("double")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("    " + label.getText().replace("private", "").replace("double", "") + "=decimal");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("    " + label.getText().replace("protected", "").replace("double", "") + "=decimal");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("    " + label.getText().replace("public", "").replace("double", "") + "=decimal");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                        if (label.getText().contains("string")) {
+                            if (label.getText().contains("private")) {
+                                bw.write("    " + label.getText().replace("private", "").replace("string", "") + "=cadena");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("protected")) {
+                                bw.write("    " + label.getText().replace("protected", "").replace("string", "") + "=cadena");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                            if (label.getText().contains("public")) {
+                                bw.write("    " + label.getText().replace("public", "").replace("string", "") + "=cadena");
+                                bw.write(";");
+                                bw.write("\n");
+                            }
+                        }
+                    }
+                    bw.write(" " + "}");
+                    bw.write("\n");
+                    bw.write("};");
+                    bw.write("\n");
+                    bw.write("#endif");
+                    bw.write("\n");
+                    bw.write("\n");
+                    bw.write("#include <iostream>\n"
+                            + "\"#include\" + '\"' + clase.getLista().get(0).getText() + \".cpp\" + '\"'" + "\n"
+                            + "using namespace std;\n"
+                            + "int main(){\n"
+                            + "return 0;\n"
+                            + "}"
+                            + ""
+                            + "");
+                    bw.flush();
+
+                    try {
+                        bw.close();
+                        fw.close();
+                    } catch (IOException ex) {
+                    }
+                } catch (IOException ex) {
+                }
+                tp_text.removeAll();
+                String codigo = archv("./archivuml.txt");
+                tp_text.setText(codigo);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ex) {
+                }
+                JOptionPane.showMessageDialog(uemeele, "Codigo de la clase generado exitosamente");
+
+            }
+        }
+    }//GEN-LAST:event_jmi_generarActionPerformed
+
+    private void bt_wardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_wardActionPerformed
+        JFileChooser jfc = new JFileChooser();
+        int op = jfc.showSaveDialog(uemeele);
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imagen png", "png");
+        jfc.addChoosableFileFilter(filtro);
+        if (op == JFileChooser.APPROVE_OPTION) {
+            Dimension d = jp_uml.getSize();
+            BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
+            jp_uml.paint(image.getGraphics());
+            try {
+                ImageIO.write(image, "png", new File(jfc.getSelectedFile().getPath() + ".png"));
+                path = jfc.getSelectedFile().getPath();
+                System.out.println(path);
+
+            } catch (IOException ex) {
+            }
+            JOptionPane.showMessageDialog(uemeele, "Imagen guardada exitosamente");
+        }
+    }//GEN-LAST:event_bt_wardActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JFileChooser jfc = new JFileChooser();
+        int op = jfc.showSaveDialog(uemeele);
+        if (op == JFileChooser.APPROVE_OPTION) {
+            umlcargar uml = new umlcargar(jfc.getSelectedFile().getPath() + ".SOTA2");
+            for (clases clase : clase) {
+                uml.getClases().add(clase);
+
+            }
+            uml.cargarArchivo();
+            try {
+                uml.escribirArchivo();
+            } catch (IOException ex) {
+
+            }
+            JOptionPane.showMessageDialog(uemeele, "UML guardado exitosamente, como SOTA2");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1822,6 +2176,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton bt_adminGuar;
     private javax.swing.JButton bt_attCrear;
     private javax.swing.JButton bt_cargar;
+    private javax.swing.JButton bt_cargaruml;
     private javax.swing.JButton bt_conh;
     private javax.swing.JButton bt_conv;
     private javax.swing.JButton bt_crearclases;
@@ -1832,9 +2187,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton bt_if;
     private javax.swing.JButton bt_inicio;
     private javax.swing.JButton bt_pdf;
+    private javax.swing.JButton bt_ward;
     private javax.swing.JButton bt_while;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -1849,8 +2206,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JDialog jd_Flujo;
     private javax.swing.JDialog jd_clases;
@@ -1859,6 +2214,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi_cambiartxt;
     private javax.swing.JMenuItem jmi_copy;
     private javax.swing.JMenuItem jmi_fuente;
+    private javax.swing.JMenuItem jmi_generar;
+    private javax.swing.JMenuItem jmi_organizar;
     private javax.swing.JMenuItem jmi_paste;
     private javax.swing.JMenuItem jmi_suprimir;
     private javax.swing.JPanel jp_tabla;
@@ -1886,7 +2243,7 @@ public class Main extends javax.swing.JFrame {
     int c_finwh = 0;
     JPanel este = null;
     int cont = 0;
-    int con=0;
+    int con = 0;
     ArrayList<clases> clase = new ArrayList();
     ArrayList<JLabel> ctrlv = new ArrayList();
 }

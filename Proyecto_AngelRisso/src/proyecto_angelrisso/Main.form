@@ -385,10 +385,20 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="bt_crearclases" max="32767" attributes="0"/>
-                      <Component id="jButton3" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="bt_crearclases" max="32767" attributes="0"/>
+                              <Component id="jButton3" max="32767" attributes="0"/>
+                              <Component id="bt_ward" max="32767" attributes="0"/>
+                              <Component id="jButton1" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                          <Component id="bt_cargaruml" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="jp_uml" max="32767" attributes="0"/>
@@ -403,7 +413,13 @@
                   <Component id="bt_crearclases" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                   <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="316" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="bt_ward" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="161" max="32767" attributes="0"/>
+                  <Component id="bt_cargaruml" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
@@ -443,7 +459,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="588" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="544" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -453,6 +469,27 @@
             </DimensionLayout>
           </Layout>
         </Container>
+        <Component class="javax.swing.JButton" name="bt_ward">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="guardar como png"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_wardActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="guardar como SOTA2"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_cargaruml">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="cargar"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jd_clases">
@@ -622,15 +659,21 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+        <MenuItem class="javax.swing.JMenuItem" name="jmi_organizar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+            <Property name="text" type="java.lang.String" value="modificar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmi_organizarActionPerformed"/>
+          </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+        <MenuItem class="javax.swing.JMenuItem" name="jmi_generar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem2"/>
+            <Property name="text" type="java.lang.String" value="generar codigo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmi_generarActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
